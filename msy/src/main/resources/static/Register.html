@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <!-- import CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <style>
+    body{
+    margin: 0;
+      background-image:url("img/yn2.jpg");
+      background-size: cover;
+    }
+    #app{
+      position: fixed;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+<el-card style="width: 500px;height: 400px;margin-left: 700px;margin-top: 250px;background-color: #909399">
+<el-form>
+  <el-form-item label="用户名">
+<el-input type="text" v-model="users.username">
+
+</el-input>
+  </el-form-item>
+  <el-form-item label="密码">
+    <el-input type="password" v-model="users.password">
+
+    </el-input>
+  </el-form-item>
+  <el-form-item label="确认密码">
+    <el-input type="password" v-model="pwd">
+
+    </el-input>
+</el-form-item>
+  <el-form-item label="">
+<el-button type="primary" @click="register()" style="text-align: center;margin-left: 200px">注册
+
+</el-button>
+  </el-form-item>
+
+</el-form>
+</el-card>
+</div>
+</body>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue@2/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="js/axios.min.js"></script>
+<script>
+  let v=new Vue({
+    el: '#app',
+    data: function() {
+      return {
+      users:{
+        username:"",
+        password:""
+      },
+        pwd:"",
+
+      }
+
+    },
+    methods: {
+    register(){
+      if (v.users.password==v.pwd){
+        axios.post("/register",v.users).then(function (response){
+          if (response.data==1){
+            alert("用户已存在！！")
+          }else if(response.data==2){
+            location.href="Login.html"
+          }else{
+            alert("输入错误！！")
+          }
+        })}
+          else{
+            alert("两次密码输入不一致！！")
+        }
+      }
+    }
+
+  })
+</script>
+</html>
